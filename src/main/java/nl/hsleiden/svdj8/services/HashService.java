@@ -12,16 +12,22 @@ public class HashService {
     public HashService() {
 
     }
-
-    public static String hashPassword(String password) throws InvalidKeySpecException, NoSuchAlgorithmException {
+    public static PBEKeySpec createPBEKey(String password, byte[] salt, int iterations){
         SecureRandom secureRandom = new SecureRandom();
-        byte[] salt = new byte[16];
         secureRandom.nextBytes(salt);
 
         char[] passwordCharArray = password.toCharArray();
-        int iterations = 10000;
+        
 
         PBEKeySpec keySpec = new PBEKeySpec(passwordCharArray, salt, iterations, 512);
+        return keySpec;
+    }
+
+    public static String hashPassword(String password) throws InvalidKeySpecException, NoSuchAlgorithmException {
+        byte[] salt = new byte[16];
+        int iterations = 10000;
+
+        PBEKeySpec keySpec = createPBEKey(password, salt, iterations);
         SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
 
         byte[] hash = secretKeyFactory.generateSecret(keySpec).getEncoded();
