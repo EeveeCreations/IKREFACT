@@ -39,6 +39,10 @@ public class AdminDAO {
     }
 
     public void deleteAdmin(long id) {
+        Optional<Admin> adminId = adminRepository.findById(id);
+        if (adminId.isEmpty()) {
+            throw new IllegalStateException("Delete failed, no admin with the id: " + id + " was found");
+        }
         adminRepository.deleteById(id);
     }
 
