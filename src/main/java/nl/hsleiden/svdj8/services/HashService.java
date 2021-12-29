@@ -18,10 +18,10 @@ public class HashService {
         byte[] salt = new byte[16];
         secureRandom.nextBytes(salt);
 
-        char[] passwordChar = password.toCharArray();
+        char[] passwordCharArray = password.toCharArray();
         int iterations = 10000;
 
-        PBEKeySpec keySpec = new PBEKeySpec(passwordChar, salt, iterations, 512);
+        PBEKeySpec keySpec = new PBEKeySpec(passwordCharArray, salt, iterations, 512);
         SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
 
         byte[] hash = secretKeyFactory.generateSecret(keySpec).getEncoded();
