@@ -4,8 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import nl.hsleiden.svdj8.daos.CategoryDAO;
-import nl.hsleiden.svdj8.models.tables.Category;
 import nl.hsleiden.svdj8.models.tables.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,14 +18,11 @@ import java.util.*;
 import static java.lang.System.out;
 
 @RestController
-public class CategoryController {
+public class CategoryToMicroserviceController {
     private HttpURLConnection con;
 
     @Autowired
-    public final CategoryDAO categoryDAO;
-
-    public CategoryController(CategoryDAO categoryDAO) {
-        this.categoryDAO = categoryDAO;
+    public CategoryToMicroserviceController() {
     }
 
     private List<Category> requestToMicroService(String specific, String duty, Category category) {
