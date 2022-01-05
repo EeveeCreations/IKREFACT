@@ -16,11 +16,11 @@ public class AnswerController {
     @Autowired
     public final AnswerDAO answerDAO;
 
-    public final CategoryDAO categoryDAO;
+    public final CategoryController categoryController;
 
-    public AnswerController(AnswerDAO answerDAO, CategoryDAO categoryDAO) {
+    public AnswerController(AnswerDAO answerDAO, CategoryController CategoryController) {
         this.answerDAO = answerDAO;
-        this.categoryDAO = categoryDAO;
+        this.categoryController = CategoryController;
     }
 
     @GetMapping(value = "/answer/all")
@@ -47,7 +47,7 @@ public class AnswerController {
                         "No answer found with id " + id + "\""));
         List<Category> categories = new ArrayList<>();
         for (Category category : returnAnswer.getCategory()) {
-            categories.add(categoryDAO.getById(category.getCategoryID()));
+            this.categoryController.getCategory(category.getCategoryID());
         }
         returnAnswer.setCategory(categories);
         return returnAnswer;
