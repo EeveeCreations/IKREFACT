@@ -1,7 +1,6 @@
 package nl.hsleiden.svdj8.controllers.tables;
 
 import nl.hsleiden.svdj8.daos.AnswerDAO;
-import nl.hsleiden.svdj8.daos.CategoryDAO;
 import nl.hsleiden.svdj8.models.tables.Answer;
 import nl.hsleiden.svdj8.models.tables.Category;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +15,11 @@ public class AnswerController {
     @Autowired
     public final AnswerDAO answerDAO;
 
-    public final CategoryDAO categoryDAO;
+    public final CategoryToMicroserviceController categoryToMicroserviceController;
 
-    public AnswerController(AnswerDAO answerDAO, CategoryDAO categoryDAO) {
+    public AnswerController(AnswerDAO answerDAO, CategoryToMicroserviceController CategoryToMicroserviceController) {
         this.answerDAO = answerDAO;
-        this.categoryDAO = categoryDAO;
+        this.categoryToMicroserviceController = CategoryToMicroserviceController;
     }
 
     @GetMapping(value = "/answer/all")
@@ -47,7 +46,7 @@ public class AnswerController {
                         "No answer found with id " + id + "\""));
         List<Category> categories = new ArrayList<>();
         for (Category category : returnAnswer.getCategory()) {
-            categories.add(categoryDAO.getById(category.getCategoryID()));
+            this.categoryToMicroserviceController.getCategory(category.getCategoryID());
         }
         returnAnswer.setCategory(categories);
         return returnAnswer;
