@@ -29,7 +29,7 @@ public class CategoryToMicroserviceController {
         List<Category> newRequest = null;
         URL url;
         try {
-            url = new URL("http://localhost:8440/microservice/category/" + specific);
+            url = new URL("http://localhost:8081/category" + specific);
             con = (HttpURLConnection) url.openConnection();
             con.setRequestProperty("content-type", "application/json; charset=utf8");
             con.setRequestMethod(duty);
