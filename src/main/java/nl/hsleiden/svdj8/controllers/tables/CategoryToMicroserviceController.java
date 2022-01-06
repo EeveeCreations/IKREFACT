@@ -29,11 +29,11 @@ public class CategoryToMicroserviceController {
         List<Category> newRequest = null;
         URL url;
         try {
-            url = new URL("http://localhost:8440/microservice/category/" + specific);
+            url = new URL("http://localhost:8081/category/" + specific);
             con = (HttpURLConnection) url.openConnection();
             con.setRequestProperty("content-type", "application/json; charset=utf8");
             con.setRequestMethod(duty);
-            if (!duty.equals("get")) {
+            if (!duty.equals("GET")) {
                 addCategoryParameter(category);
             }
             newRequest = formToCategory(readRequest(con), duty, specific);
@@ -75,8 +75,7 @@ public class CategoryToMicroserviceController {
 
     private List<Category> formToCategory(String content, String duty, String specific) {
         JsonArray jsArray;
-
-        if (duty.equals("put") || (duty.equals("get")) && specific.equals("all")) {
+        if (duty.equals("PUT") || (duty.equals("GET") && !specific.equals("all"))) {
             JsonObject item = new Gson().fromJson(content, JsonObject.class);
             jsArray = new JsonArray();
             jsArray.add(item);
@@ -96,12 +95,12 @@ public class CategoryToMicroserviceController {
 
     @GetMapping(value = "/category/all")
     public List<Category> getAllCategories() {
-        return requestToMicroService("all", "get", new Category());
+        return requestToMicroService("all", "GET", new Category());
     }
 
     @GetMapping(value = "/category/{id}")
     public Category getCategory(@PathVariable final Long id) {
-        return requestToMicroService(id.toString(), "get", new Category()).get(0);
+        return requestToMicroService(id.toString(), "GET", new Category()).get(0);
     }
 
     @PutMapping(value = "/category/{id}")
