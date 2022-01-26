@@ -32,7 +32,8 @@ public class VerificationService {
         simpleMailMessage.setTo(email);
         simpleMailMessage.setSubject("Verificatie code SVDJ admin");
         String code = createVerificationCode();
-        simpleMailMessage.setText("Gebruik deze code om u identiteit te bevestigen voor de SVDJ admin portal \n" + code + "\n \n- SVDJ");
+        simpleMailMessage.setText("Gebruik deze code om u identiteit te bevestig " +
+            "en voor de SVDJ admin portal \n" + code + "\n \n- SVDJ");
         javaMailSender.send(simpleMailMessage);
     }
 
