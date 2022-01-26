@@ -8,13 +8,10 @@ import org.hibernate.dialect.function.SQLFunctionTemplate;
 import org.hibernate.dialect.function.VarArgsSQLFunction;
 import org.hibernate.type.StringType;
 
-/**
- * All classes and models based on sending  to database (unless said otherwise above)
- * made by
- * @author Eefje|AntiEevee
- */
-public class SQLDialect extends Dialect {
-    public SQLDialect() {
+//@author Eefje|AntiEevee
+ 
+public class HibernateImplementation extends Dialect {
+    public HibernateImplementation() {
         registerColumnType(Types.BIT, "integer");
         registerColumnType(Types.TINYINT, "tinyint");
         registerColumnType(Types.SMALLINT, "smallint");

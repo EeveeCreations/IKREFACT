@@ -7,15 +7,11 @@ public class Data {
     private char duty;
     private HashMap<String,Object>givenVariables;
 
-//    Constructor
-
     public Data(String token, char duty, HashMap<String, Object> givenVariables) {
         this.token = token;
         this.duty = duty;
         this.givenVariables = givenVariables;
     }
-
-//    Getters and Setters
 
     public String getToken() {
         return token;
